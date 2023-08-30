@@ -32,19 +32,27 @@ const crawler = async ({url,depth,resultsArr}) => {
         })
     })
 
-    $('a').each(async (domElI,domEl)=>{
-        const linkUrl = new URL($(domEl).attr('href'),url).href;
-        await crawler({url:linkUrl,depth:depth+1,resultsArr:results})
-    })
+    // $('a').each(async (domElI,domEl)=>{
+    //     const linkUrl = new URL($(domEl).attr('href'),url).href;
+    //     await crawler({url:linkUrl,depth:depth+1,resultsArr})
+    // })
 
+    const aElements = $('a')
 
-
-    console.log('results',results)
+    for(let i=0;i<aElements.length;i++){
+        const linkUrl = new URL($(aElements[i]).attr('href'),url).href;
+        await crawler({url:linkUrl,depth:depth+1,resultsArr})
+    }
 
 }
 
 
 (async ()=>{
     await crawler({url:rootUrl,depth:0,resultsArr:results})
+
+    const json= JSON.stringify({results});
+
+    console.log('json',json)
+    fs.writeFileSync('results.json',json)
 })()
 
