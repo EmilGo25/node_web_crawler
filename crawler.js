@@ -8,10 +8,12 @@ if(input.length !==2){
     return;
 }
 
+// input and output vars
 const rootUrl = input[0]
 const finalDepth = input[1]
 const results = []
 
+// recursive func to scrap the img elements at a certain depth
 const crawler = async ({url,depth,resultsArr}) => {
     // stop condition for recursion = we reached final depth
     if(finalDepth<depth){
@@ -23,7 +25,6 @@ const crawler = async ({url,depth,resultsArr}) => {
     const $ = cheerio.load(urlDom.data)
 
     // scrap the img dom elements
-
     $('img').each((domElI,domEl)=>{
         const imgUrl = $(domEl).attr('src');
         resultsArr.push({
@@ -55,7 +56,6 @@ const crawler = async ({url,depth,resultsArr}) => {
 
     const json= JSON.stringify({results});
 
-    console.log('json',json)
     fs.writeFileSync('results.json',json)
 })()
 
