@@ -12,5 +12,19 @@ const finalDepth = input[1]
 const results = []
 
 const crawler = async ({url,depth,resultsArr}) => {
+    // stop condition for recursion = we reached final depth
+    if(finalDepth<depth){
+        return ;
+    }
+
+    // get the url DOM content
+    const urlDom= await axios.get(url)
+    console.log('urlDom',urlDom.data)
 
 }
+
+
+(async ()=>{
+    await crawler({url:rootUrl,depth:0,resultsArr:results})
+})()
+
