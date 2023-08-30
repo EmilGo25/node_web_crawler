@@ -19,7 +19,6 @@ const crawler = async ({url,depth,resultsArr}) => {
 
     // get the url DOM content
     const urlDom= await axios.get(url)
-    console.log('urlDom',urlDom.data)
     const $ = cheerio.load(urlDom.data)
 
     // scrap the img dom elements
@@ -31,6 +30,11 @@ const crawler = async ({url,depth,resultsArr}) => {
             sourceUrl:url,
             depth
         })
+    })
+
+    $('a').each(async (domElI,domEl)=>{
+        const linkUrl = new URL($(domEl).attr('href'),url).href;
+        await crawler({url:linkUrl,depth:depth+1,resultsArr:results})
     })
 
 
