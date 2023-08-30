@@ -5,6 +5,7 @@ const axios = require('axios')
 const input = process.argv.slice(2)
 if(input.length !==2){
     console.log('please supply url and depth as an input')
+    return;
 }
 
 const rootUrl = input[0]
@@ -31,6 +32,8 @@ const crawler = async ({url,depth,resultsArr}) => {
             depth
         })
     })
+
+    // scrap the a dom elements
 
     // $('a').each(async (domElI,domEl)=>{
     //     const linkUrl = new URL($(domEl).attr('href'),url).href;
