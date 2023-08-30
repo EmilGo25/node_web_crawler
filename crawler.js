@@ -22,10 +22,20 @@ const crawler = async ({url,depth,resultsArr}) => {
     console.log('urlDom',urlDom.data)
     const $ = cheerio.load(urlDom.data)
 
+    // scrap the img dom elements
+
     $('img').each((domElI,domEl)=>{
-        const url = $(domEl).attr('src');
-        console.log('url',url)
+        const imgUrl = $(domEl).attr('src');
+        resultsArr.push({
+            imageUrl:imgUrl,
+            sourceUrl:url,
+            depth
+        })
     })
+
+
+
+    console.log('results',results)
 
 }
 
